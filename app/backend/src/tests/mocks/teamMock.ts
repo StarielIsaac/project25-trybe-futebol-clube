@@ -1,4 +1,9 @@
-const teamMockArray = [
+const mockSingleTeam =   {
+  "id": 5,
+  "teamName": "Flamengo"
+}
+
+const mockArrayTeam = [
   {
     "id": 1,
     "teamName": "Atlético/MG"
@@ -41,4 +46,4 @@ const teamMockArray = [
   }
 ];
 
-export default { teamMockArray }
+export default { mockSingleTeam, mockArrayTeam }
