@@ -6,7 +6,7 @@ export default class LoginController {
 
   async authenticateUser(req: Request, res: Response) {
     const { email, string } = req.body;
-    // const createdToken = await this.loginService.findById(email, string);
+    const createdToken = await this.loginService.authenticateUser(email, string);
     res.status(200).json(createdToken);
   }
 }
