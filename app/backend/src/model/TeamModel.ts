@@ -4,8 +4,8 @@ class TeamModel {
   constructor(private team = Team) {}
 
   async findAllTimes() {
-    const finded = await this.team.findAll();
-    return finded;
+    const findedTeams = await this.team.findAll();
+    return findedTeams;
   }
 }
 
