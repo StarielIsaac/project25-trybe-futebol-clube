@@ -1,11 +1,12 @@
-import user from '../database/models/Users';
+import User from '../database/models/Users';
 
 class LoginModel {
-  constructor(private team = user) {}
+  constructor(private user = User) {}
 
-  async authenticateUser(email: string, password: string) {
-    const token = await this.team.findByPk();
-    return token;
+  // encontra o usuario de acordo com o email
+  async authenticateUser(email: string, _password: string) {
+    const user = await this.user.findOne({ where: { email } });
+    return user;
   }
 }
 

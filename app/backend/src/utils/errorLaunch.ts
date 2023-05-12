@@ -1,6 +1,6 @@
 // Classe ErrorLaunch, que extende a classe Error padrão do JavaScript
-class ErrorLaunch extends Error {
-  code: number; // Propriedade 'code' que armazena o código de erro
+export default class ErrorLaunch extends Error {
+  public code: number; // Propriedade 'code' que armazena o código de erro
 
   constructor(message: string, code: number) {
     super(message); // Chama o construtor da classe Error, passando a mensagem de erro
@@ -8,6 +8,4 @@ class ErrorLaunch extends Error {
     Object.setPrototypeOf(this, ErrorLaunch.prototype);
   }
 }
-
 // Exporta a classe ErrorLaunch para ser utilizada em outros módulos
-export default ErrorLaunch;
