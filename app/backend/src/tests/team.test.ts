@@ -18,6 +18,10 @@ describe('testando endpoint /', () => {
         createStub = sinon.stub(Teams, 'findAll').resolves(mockArrayTeam as unknown as Teams[]);
     });
 
+    afterEach (() => {
+        createStub.restore();
+    });
+
     it('testando se função findAllTimes retorna uma array de times', async () => {
        const { status, body } = await chai.request(app).get('/teams')
 
