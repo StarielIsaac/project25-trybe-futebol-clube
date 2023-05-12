@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import LoginService from '../services/LoginService';
+import UserService from '../services/UserService';
 
 export default class LoginController {
-  constructor(private loginService = new LoginService()) {}
+  constructor(private userService = new UserService()) {}
 
   async authenticateUser(req: Request, res: Response) {
     const { email, string } = req.body;
-    const createdToken = await this.loginService.authenticateUser(email, string);
+    const createdToken = await this.userService.authenticateUser(email, string);
     res.status(200).json(createdToken);
   }
 }

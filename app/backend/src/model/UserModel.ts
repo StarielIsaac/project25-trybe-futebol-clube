@@ -1,6 +1,6 @@
 import User from '../database/models/Users';
 
-class LoginModel {
+class UserModel {
   constructor(private user = User) {}
 
   // encontra o usuario de acordo com o email
@@ -10,4 +10,4 @@ class LoginModel {
   }
 }
 
-export default LoginModel;
+export default UserModel;
