@@ -43,7 +43,7 @@ describe('testando endpoint /teams/:id', () => {
     });
 
     it('testando se função findById retorna o id corretamente', async () => {
-        const { status, body } = await chai.request(app).get('/teams')
+        const { status, body } = await chai.request(app).get('/teams/5')
     
          expect(status).to.be.equal(200);
          expect(body).to.be.deep.equal(mockArrayTeam);
