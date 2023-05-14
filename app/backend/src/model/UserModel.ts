@@ -4,7 +4,7 @@ class UserModel {
   constructor(private user = User) {}
 
   // encontra o usuario de acordo com o email
-  async authenticateUser(email: string, _password: string) {
+  async authenticateUser(email: string) {
     const user = await this.user.findOne({ where: { email } });
     return user;
   }
