@@ -13,7 +13,7 @@ export default class UserService {
   }
 
   async authenticateUser(email: string, password: string) {
-    const user = await this.userModel.authenticateUser(email);
+    const user = await this.userModel.findUser(email);
 
     if (!user) {
       throw new ErrorLaunch('Invalid email or password', 401);
@@ -25,5 +25,10 @@ export default class UserService {
 
     const token = createToken({ email: user.email });
     return token;
+  }
+
+  async verifyToken(email: string) {
+    const user = await this.userModel.findUserById(email);
+    return user.role;
   }
 }

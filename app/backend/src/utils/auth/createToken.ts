@@ -1,5 +1,6 @@
 import jwt = require('jsonwebtoken');
 import { typePayload } from '../../types/typePayload';
+import payloadJWT from '../../types/payloadJwt';
 
 const SECRET_KEY = process.env.JWT_SECRET || 'SECRET';
 
@@ -13,7 +14,7 @@ export function createToken(payload: typePayload): string {
   return token;
 }
 
-export function verifyToken(token: string) {
+export function verifyToken(token: string): payloadJWT {
   const isValid = jwt.verify(token, SECRET_KEY);
-  return isValid;
+  return isValid as payloadJWT;
 }
