@@ -8,4 +8,3 @@ export default class ErrorLaunch extends Error {
     Object.setPrototypeOf(this, ErrorLaunch.prototype);
   }
 }
-// Exporta a classe ErrorLaunch para ser utilizada em outros módulos
