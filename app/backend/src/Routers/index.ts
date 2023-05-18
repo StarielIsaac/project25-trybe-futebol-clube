@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import teamRouter from './teamRouter';
 import userRouter from './userRouter';
+import matchRouter from './matchRouter';
 
 const router = Router();
 
@@ -8,5 +9,7 @@ const router = Router();
 router.use('/teams', teamRouter);
 // rota para o endpoint /login
 router.use('/login', userRouter);
+
+router.use('/matches', matchRouter);
 
 export default router;
