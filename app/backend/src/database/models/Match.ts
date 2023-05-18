@@ -14,7 +14,10 @@ Match.init({
   homeTeamId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true,
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
   homeTeamGoals: {
     type: DataTypes.INTEGER,
@@ -23,7 +26,10 @@ Match.init({
   awayTeamId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    primaryKey: true,
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
   awayTeamGoals: {
     type: DataTypes.INTEGER,

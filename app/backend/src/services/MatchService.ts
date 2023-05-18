@@ -4,7 +4,7 @@ export default class MatchService {
   constructor(private matchModel = new MatchModel()) {}
 
   async findAllMatches() {
-    // const findedTeams = await this.matchModel.findAllMatches();
-    // return findedTeams;
+    const allMatches = await this.matchModel.findAllMatches();
+    return allMatches;
   }
 }
