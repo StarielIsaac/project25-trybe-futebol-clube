@@ -22,6 +22,28 @@ class MatchModel {
     });
     return allMatches;
   }
+
+  async getMatchesNoScope(progress: boolean) {
+    const matches = await this.match.findAll({
+      include: [
+        {
+          model: Teams,
+          as: 'homeTeam',
+          attributes: ['teamName'],
+        },
+        {
+          model: Teams,
+          as: 'awayTeam',
+          attributes: ['teamName'],
+        },
+
+      ],
+      where: {
+        inProgress: progress,
+      },
+    });
+    return matches;
+  }
 }
 
 export default MatchModel;

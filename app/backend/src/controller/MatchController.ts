@@ -5,7 +5,8 @@ export default class MatchController {
   constructor(private matchService = new MatchService()) {}
 
   async findAllMatches(req: Request, res: Response) {
-    const allMatches = await this.matchService.findAllMatches();
+    const { inProgress } = req.query;
+    const allMatches = await this.matchService.findAllMatches(inProgress as string | undefined);
     res.status(200).json(allMatches);
   }
 }
