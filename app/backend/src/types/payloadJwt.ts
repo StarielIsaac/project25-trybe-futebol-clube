@@ -1,5 +1,5 @@
 type payloadJWT = {
-  email: number,
+  email: string,
 };
 
 export default payloadJWT;

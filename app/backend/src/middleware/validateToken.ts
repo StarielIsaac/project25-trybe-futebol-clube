@@ -1,9 +1,9 @@
-import { NextFunction, Response } from 'express';
+import { NextFunction, Response, Request } from 'express';
 import { verifyToken } from '../utils/auth/createToken';
-import typeUser from '../types/typeUser';
+// import typeUser from '../types/typeUser';
 // import Joi from 'joi';
 
-export default function validateToken(req: typeUser, res: Response, next: NextFunction) {
+export default function validateToken(req: Request, res: Response, next: NextFunction) {
   const { authorization } = req.headers;
 
   if (!authorization) {
@@ -12,7 +12,7 @@ export default function validateToken(req: typeUser, res: Response, next: NextFu
 
   const user = verifyToken(authorization);
 
-  req.user = user;
+  req.headers.user = JSON.stringify(user);
 
   next();
 }

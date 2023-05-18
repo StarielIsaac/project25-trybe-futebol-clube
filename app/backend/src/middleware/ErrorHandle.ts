@@ -8,6 +8,7 @@ import ErrorLaunch from '../utils/errorLaunch';
 const errorHandler : ErrorRequestHandler = (err : Error, _req, res, _next) => {
   // Se o erro for uma instância da classe ErrorLaunch,
   // trata-se de um erro personalizado lançado pela aplicação.
+  // console.log(err);
   if (err instanceof ErrorLaunch) {
     return res.status(err.code).json({ message: err.message });
   }
@@ -20,7 +21,6 @@ const errorHandler : ErrorRequestHandler = (err : Error, _req, res, _next) => {
   if (err instanceof JsonWebTokenError) {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
-  // console.log(err);
   // Se o erro não for uma instância das classes anteriores, trata-se de um erro interno do servidor
   return res.status(500).json({ message: 'internal server error' });
 };
