@@ -9,4 +9,10 @@ export default class MatchController {
     const allMatches = await this.matchService.findAllMatches(inProgress as string | undefined);
     res.status(200).json(allMatches);
   }
+
+  async updateOnGoingMatches(req: Request, res: Response) {
+    const { id } = req.params;
+    const match = await this.matchService.updateOnGoingMatches(Number(id));
+    res.status(200).json(match);
+  }
 }

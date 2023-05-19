@@ -13,4 +13,9 @@ export default class MatchService {
     const allMatches = await this.matchModel.findAllMatches();
     return allMatches;
   }
+
+  async updateOnGoingMatches(id: number) {
+    const match = await this.matchModel.updateOnGoingMatches(id);
+    return match;
+  }
 }

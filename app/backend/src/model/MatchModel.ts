@@ -44,6 +44,14 @@ class MatchModel {
     });
     return matches;
   }
+
+  async updateOnGoingMatches(id: number) {
+    const matchUpdated = await this.match.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return matchUpdated;
+  }
 }
 
 export default MatchModel;
