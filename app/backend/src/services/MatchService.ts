@@ -1,5 +1,6 @@
 import MatchModel from '../model/MatchModel';
 import updateInfo from '../types/updateInfo';
+import typeNewMatch from '../types/typeNewMatch';
 
 export default class MatchService {
   constructor(private matchModel = new MatchModel()) {}
@@ -22,6 +23,13 @@ export default class MatchService {
 
   async updateOnGoingMatches({ id, homeTeamGoals, awayTeamGoals }: updateInfo) {
     const match = await this.matchModel.updateOnGoingMatches({ id, homeTeamGoals, awayTeamGoals });
+    return match;
+  }
+
+  async createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals }: typeNewMatch) {
+    const match = await this.matchModel.createNewMatch(
+      { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as typeNewMatch,
+    );
     return match;
   }
 }

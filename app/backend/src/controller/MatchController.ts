@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import MatchService from '../services/MatchService';
 import updateInfo from '../types/updateInfo';
+import typeNewMatch from '../types/typeNewMatch';
 
 export default class MatchController {
   constructor(private matchService = new MatchService()) {}
@@ -23,5 +24,13 @@ export default class MatchController {
     const match = await this.matchService
       .updateOnGoingMatches({ id: Number(id), homeTeamGoals, awayTeamGoals } as updateInfo);
     res.status(200).json(match);
+  }
+
+  async createNewMatch(req: Request, res: Response) {
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
+    const match = await this.matchService
+      .createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as typeNewMatch);
+
+    res.status(201).json(match);
   }
 }

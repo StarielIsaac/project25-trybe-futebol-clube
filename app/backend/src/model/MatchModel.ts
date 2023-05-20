@@ -1,6 +1,7 @@
 import updateInfo from '../types/updateInfo';
 import Match from '../database/models/Match';
 import Teams from '../database/models/Teams';
+import typeNewMatch from '../types/typeNewMatch';
 
 class MatchModel {
   constructor(private match = Match) {}
@@ -60,6 +61,10 @@ class MatchModel {
       { where: { id } },
     );
     return match;
+  }
+
+  async createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals }: typeNewMatch) {
+    
   }
 }
 
