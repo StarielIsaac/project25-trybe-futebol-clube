@@ -1,3 +1,4 @@
+import updateInfo from '../types/updateInfo';
 import Match from '../database/models/Match';
 import Teams from '../database/models/Teams';
 
@@ -45,12 +46,20 @@ class MatchModel {
     return matches;
   }
 
-  async updateOnGoingMatches(id: number) {
+  async matchFinish(id: number) {
     const matchUpdated = await this.match.update(
       { inProgress: false },
       { where: { id } },
     );
     return matchUpdated;
+  }
+
+  async updateOnGoingMatches({ id, homeTeamGoals, awayTeamGoals }: updateInfo) {
+    const match = await this.match.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    return match;
   }
 }
 
