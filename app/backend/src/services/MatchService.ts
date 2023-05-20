@@ -1,14 +1,25 @@
 import MatchModel from '../model/MatchModel';
+import TeamModel from '../model/TeamModel';
 import updateInfo from '../types/updateInfo';
 import typeNewMatch from '../types/typeNewMatch';
 import ErrorLaunch from '../utils/errorLaunch';
 
 export default class MatchService {
-  constructor(private matchModel = new MatchModel()) {}
+  constructor(
+    private matchModel = new MatchModel(),
+    private teamModel = new TeamModel(),
+  ) {}
 
-  static validateTeamsAndExistence(homeTeamId: number, awayTeamId: number) {
+  async validateTeamsAndExistence(homeTeamId: number, awayTeamId: number) {
     if (homeTeamId === awayTeamId) {
       throw new ErrorLaunch('It is not possible to create a match with two equal teams', 422);
+    }
+
+    const teamHome = await this.teamModel.findById(homeTeamId);
+    const teamAway = await this.teamModel.findById(awayTeamId);
+
+    if (!teamHome || !teamAway) {
+      throw new ErrorLaunch('There is no team with such id!', 404);
     }
   }
 
@@ -34,7 +45,7 @@ export default class MatchService {
   }
 
   async createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals }: typeNewMatch) {
-    const isValid = MatchService.validateTeamsAndExistence(homeTeamId, awayTeamId);
+    this.validateTeamsAndExistence(homeTeamId, awayTeamId);
 
     const match = await this.matchModel.createNewMatch(
       { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as typeNewMatch,
