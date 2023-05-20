@@ -63,8 +63,12 @@ class MatchModel {
     return match;
   }
 
-  async createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals }: typeNewMatch) {
-    
+  async createNewMatch({ ...newMatch }: typeNewMatch) {
+    const match = await this.match.create({
+      ...newMatch,
+      inProgress: true,
+    });
+    return match;
   }
 }
 
