@@ -9,13 +9,13 @@ export default class MatchController {
   async findAllMatches(req: Request, res: Response) {
     const { inProgress } = req.query;
     const allMatches = await this.matchService.findAllMatches(inProgress as string | undefined);
-    res.status(200).json(allMatches);
+    return res.status(200).json(allMatches);
   }
 
   async matchFinish(req: Request, res: Response) {
     const { id } = req.params;
     const match = await this.matchService.matchFinish(Number(id));
-    res.status(200).json(match);
+    return res.status(200).json(match);
   }
 
   async updateOnGoingMatches(req: Request, res: Response) {
@@ -23,14 +23,13 @@ export default class MatchController {
     const { id } = req.params;
     const match = await this.matchService
       .updateOnGoingMatches({ id: Number(id), homeTeamGoals, awayTeamGoals } as updateInfo);
-    res.status(200).json(match);
+    return res.status(200).json(match);
   }
 
   async createNewMatch(req: Request, res: Response) {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
     const match = await this.matchService
       .createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as typeNewMatch);
-
-    res.status(201).json(match);
+    return res.status(201).json(match);
   }
 }

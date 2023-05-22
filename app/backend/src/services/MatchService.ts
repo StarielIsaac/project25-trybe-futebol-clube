@@ -45,7 +45,7 @@ export default class MatchService {
   }
 
   async createNewMatch({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals }: typeNewMatch) {
-    this.validateTeamsAndExistence(homeTeamId, awayTeamId);
+    await this.validateTeamsAndExistence(homeTeamId, awayTeamId);
 
     const match = await this.matchModel.createNewMatch(
       { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } as typeNewMatch,

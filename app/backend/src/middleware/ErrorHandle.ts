@@ -7,7 +7,6 @@ import ErrorLaunch from '../utils/errorLaunch';
 const errorHandler : ErrorRequestHandler = (err : Error, _req, res, _next) => {
   // Se o erro for uma instância da classe ErrorLaunch,
   // trata-se de um erro personalizado lançado pela aplicação.
-  // console.log(err);
   if (err instanceof ErrorLaunch) {
     return res.status(err.code).json({ message: err.message });
   }

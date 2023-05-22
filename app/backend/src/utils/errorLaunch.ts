@@ -5,6 +5,5 @@ export default class ErrorLaunch extends Error {
   constructor(message: string, code: number) {
     super(message); // Chama o construtor da classe Error, passando a mensagem de erro
     this.code = code; // Define o valor da propriedade 'code' com o código de erro recebido
-    Object.setPrototypeOf(this, ErrorLaunch.prototype);
   }
 }
