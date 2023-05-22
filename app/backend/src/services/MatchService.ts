@@ -3,7 +3,7 @@ import TeamModel from '../model/TeamModel';
 import updateInfo from '../types/updateInfo';
 import typeNewMatch from '../types/typeNewMatch';
 import ErrorLaunch from '../utils/errorLaunch';
-  
+
 export default class MatchService {
   constructor(
     private matchModel = new MatchModel(),
