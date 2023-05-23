@@ -12,7 +12,7 @@ import Teams from '../database/models/Teams';
 chai.use(chaiHttp);
 const { expect } = chai;
 
-describe('testando endpoint /', () => {
+describe('testando endpoint /teams', () => {
     let createStub: sinon.SinonStub;
 
     beforeEach(() => {
