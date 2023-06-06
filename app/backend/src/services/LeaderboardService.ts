@@ -122,4 +122,96 @@ export default class LeaderboardService {
 
     return sortedLeaderBoard;
   }
+
+  async visitorPerformance() {
+    const allMatches = await this.matchModel.getMatchesNoScope(false);
+    const allTeams = await this.teamModel.findAllTimes();
+
+    const allAwayTeamsPerformance = this.setTeamsPerformance(allMatches, allTeams, false);
+
+    return LeaderboardService.orderTeamsByPerformance(allAwayTeamsPerformance);
+  }
+
+  setNotConditionalPerformanceData(team: TeamType, matchesPerTeam: MatchData[]) {
+    const { teamName } = team;
+    const totalGames = matchesPerTeam.length;
+    const goalsBalance = this.performance.goalsFavor - this.performance.goalsOwn;
+    const efficiency = Number(((this.performance.totalPoints / (totalGames * 3)) * 100).toFixed(2));
+
+    Object.assign(this.performance, { name: teamName, totalGames, goalsBalance, efficiency });
+  }
+
+  calculateTeamPerformance(team: TeamType, matchesPerTeam: MatchData[], isHomeTeam: boolean) {
+    this.calculateGoals(matchesPerTeam, isHomeTeam);
+    this.calculateResults(matchesPerTeam, isHomeTeam);
+    this.setNotConditionalPerformanceData(team, matchesPerTeam);
+
+    return this.performance;
+  }
+
+  calculateGoals(matchesPerTeam: MatchData[], isHomeTeam: boolean) {
+    matchesPerTeam.forEach(({ homeTeamGoals, awayTeamGoals }) => {
+      this.performance.goalsFavor += isHomeTeam ? homeTeamGoals : awayTeamGoals;
+      this.performance.goalsOwn += isHomeTeam ? awayTeamGoals : homeTeamGoals;
+    });
+  }
+
+  calculateResults(matchesPerTeam: MatchData[], isHomeTeam: boolean) {
+    matchesPerTeam.forEach((match) => {
+      const { homeTeamGoals, awayTeamGoals } = match;
+      if (
+        (isHomeTeam && homeTeamGoals > awayTeamGoals)
+        || (!isHomeTeam && awayTeamGoals > homeTeamGoals)) {
+        this.performance.totalVictories += 1;
+        this.performance.totalPoints += 3;
+      } else if (
+        (isHomeTeam && homeTeamGoals < awayTeamGoals)
+        || (!isHomeTeam && awayTeamGoals < homeTeamGoals)) {
+        this.performance.totalLosses += 1;
+      } else {
+        this.performance.totalDraws += 1;
+        this.performance.totalPoints += 1;
+      }
+    });
+  }
+
+  resetAtributePerformance() {
+    this.performance = {
+      name: '',
+      totalPoints: 0,
+      totalGames: 0,
+      totalVictories: 0,
+      totalDraws: 0,
+      totalLosses: 0,
+      goalsFavor: 0,
+      goalsOwn: 0,
+      goalsBalance: 0,
+      efficiency: 0,
+    };
+  }
+
+  static orderTeamsByPerformance(teamsPerformance: TeamPerformance[]) {
+    return teamsPerformance.sort((a, b) => {
+      if (b.totalPoints !== a.totalPoints) {
+        return b.totalPoints - a.totalPoints;
+      }
+      if (b.totalVictories !== a.totalVictories) {
+        return b.totalVictories - a.totalVictories;
+      }
+      if (b.goalsBalance !== a.goalsBalance) {
+        return b.goalsBalance - a.goalsBalance;
+      }
+      return b.goalsFavor - a.goalsFavor;
+    });
+  }
+
+  setTeamsPerformance(allMatches: MatchData[], allTeams: TeamType[], homeTeam: boolean) {
+    return allTeams.map((team) => {
+      const matchesPerTeam = allMatches.filter(({ homeTeamId, awayTeamId }) =>
+        (homeTeam ? homeTeamId : awayTeamId) === team.id);
+      const performance = this.calculateTeamPerformance(team, matchesPerTeam, homeTeam);
+      this.resetAtributePerformance();
+      return performance;
+    });
+  }
 }
