@@ -8,4 +8,15 @@ export default class LeaderboardController {
     const sucess = await this.leaderboardService.findLeaderBoard();
     res.status(200).json(sucess);
   }
+
+  // async getTeamsPerformance(_req: Request, res: Response) {
+  //   const values = await this.leaderboardService.getTeamsPerformance();
+  //   res.status(200).json(values);
+  // }
+
+  // getAllAwayTeamsPerformance
+  async visitorPerformance(_req: Request, res: Response) {
+    const sucess = await this.leaderboardService.visitorPerformance();
+    res.status(200).json(sucess);
+  }
 }

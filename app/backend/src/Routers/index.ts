@@ -6,7 +6,7 @@ import leaderboardRouter from './leaderboardRouter';
 
 const router = Router();
 
-// rota para o endpoint /teams
+// rota para o endpoint /name
 router.use('/teams', teamRouter);
 
 // rota para o endpoint /login

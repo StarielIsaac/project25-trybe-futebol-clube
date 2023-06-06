@@ -1,8 +1,31 @@
-import { matche, teamAndId, infoTeam } from '../types/LeaderBoard';
+import {
+  matche,
+  teamAndId,
+  infoTeam,
+  TeamPerformance,
+  MatchData,
+  TeamType,
+} from '../types/LeaderBoard';
 import MatchModel from '../model/MatchModel';
+import TeamModel from '../model/TeamModel';
 
 export default class LeaderboardService {
-  constructor(private matchModel = new MatchModel()) {}
+  constructor(
+    private matchModel = new MatchModel(),
+    private teamModel = new TeamModel(),
+    private performance: TeamPerformance = {
+      name: '',
+      totalPoints: 0,
+      totalGames: 0,
+      totalVictories: 0,
+      totalDraws: 0,
+      totalLosses: 0,
+      goalsFavor: 0,
+      goalsOwn: 0,
+      goalsBalance: 0,
+      efficiency: 0,
+    },
+  ) {}
 
   async filterAllTeams() {
     // Obtendo todas as partidas
